@@ -1,6 +1,6 @@
 import React from "react";
-import SearchBar from "@/components/owner_repoName/SearchBar";
-import NavigationItems from "@/components/owner_repoName/NavigationItems";
+import SearchBar from "@/components/SearchBar";
+import NavigationItems from "@/components/NavigationItems";
 
 const Header: React.FC = () => {
   return (

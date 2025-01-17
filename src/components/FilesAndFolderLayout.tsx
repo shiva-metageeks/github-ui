@@ -1,7 +1,10 @@
+"use client"
 import FolderStructure from "./FolderStructure";
 import SelectBranch from "./SelectBranch";
 import { FileAndFolderLayoutProps } from "@/types/type";
 import TimeAgo from "./TimeAgo";
+import EmptyRepoPlaceholder from "./repository/EmptyRepoPlaceholder";
+import { useEffect } from "react";
 
 const FilesAndFolderLayout = ({
   initialBranch,
@@ -16,6 +19,20 @@ const FilesAndFolderLayout = ({
   branchName,
   rootPath,
 }: FileAndFolderLayoutProps) => {
+
+  useEffect(() => {
+    console.log({initialBranch,
+      path,
+      data,
+      owner,
+      repoName,
+      commits,
+      contributors,
+      totalCommits,
+      projectId,
+      branchName,
+      rootPath,}, 404)
+  }, [])
   const latestCommit =
     commits
       .sort(
@@ -24,7 +41,9 @@ const FilesAndFolderLayout = ({
           new Date(a.committed_date).getTime()
       )
       .find(() => true) || null;
-
+  if (totalCommits == -1 || !totalCommits) {
+    return <EmptyRepoPlaceholder repoUrl={`https://git.clusterprotocol.ai/${owner}/${repoName}`} />
+  }
   return (
     <div className="w-full">
       <div className="flex justify-center items-center w-full">

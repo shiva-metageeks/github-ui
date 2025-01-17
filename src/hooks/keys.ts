@@ -61,7 +61,7 @@ const revokeApiKey = async (key: string): Promise<void> => {
 
 export const useGenerateAccessToken = () => {
   const queryClient = useQueryClient();
-  const { mutate: generateAccessTokenMutation, isPending } = useMutation({
+  const { mutateAsync: generateAccessTokenMutation, isPending } = useMutation({
     mutationFn: ({
       permissions,
       name,
@@ -80,14 +80,14 @@ export const useGenerateAccessToken = () => {
 export const useGetApiKeys = () => {
   const [user] = useAuthState(firebaseAuth);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading ,refetch} = useQuery({
     queryKey: ["apiKeys"],
     queryFn: getApiKeys,
     enabled: user ? true : false,
   });
   console.log("data", data);
 
-  return { apiKeys: data, isLoading };
+  return { apiKeys: data, isLoading ,refetch };
 };
 
 export const useDeleteApiKey = () => {

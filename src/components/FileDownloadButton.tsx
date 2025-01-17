@@ -17,7 +17,7 @@ const FileDownloadButton = ({
     const urlEncodedPath = encodeURIComponent(path);
     try {
       const response = await axios.get(
-        `${process.env.GIT_REPO_URL_PUBLIC}/projects/${projectId}/repository/files/${urlEncodedPath}/raw?ref=${branch}`,
+        `${process.env.NEXT_PUBLIC_GIT_REPO_URL}/projects/${projectId}/repository/files/${urlEncodedPath}/raw?ref=${branch}`,
         {
           responseType: "blob",
         }

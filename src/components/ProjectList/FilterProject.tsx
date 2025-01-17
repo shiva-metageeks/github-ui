@@ -4,6 +4,8 @@ import { modalities, formats } from "@/utils/card";
 const FilterProject = () => {
   const [minValue, setMinValue] = useState(20);
   const [maxValue, setMaxValue] = useState(80);
+  const [selectedModality, setModality] = useState("");
+  const [selectedFormat, setFormat] = useState("");
   const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     if (value <= maxValue) {
@@ -20,13 +22,13 @@ const FilterProject = () => {
   return (
     <div>
       <div className="flex justify-between border-b-2 border-solid mb-4 border-zinc-900 gap-2">
-        <div className="md:w-1/3 px-4 py-4">
+        <div className="flex-1 px-4 py-4">
           <section className="flex border-r-2 border-solid bg-zinc-950 border-zinc-900 flex-col grow shrink-0 items-start mt-5 basis-0 w-fit">
-            <header className="flex gap-5 justify-between w-full max-w-[361px]">
+            <header className="flex gap-5 justify-between w-full">
               <h2 className="my-auto text-lg font-medium text-white">
                 Modalities
               </h2>
-              <button className="flex gap-1 px-3 py-1.5 text-sm leading-none rounded-md border border-solid bg-zinc-950 border-zinc-700 text-neutral-400">
+              <button onClick={()=>{setModality("")}} className="flex gap-1 px-3 py-1.5 text-sm leading-none rounded-md border border-solid bg-zinc-950 border-zinc-700 text-neutral-400">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/55724ebaa22ba79ac2bdeeb855b6a9cbb539621d755b04256d5a91788bc9e8e2?placeholderIfAbsent=true&apiKey=3ffd321d22914a748ca8bbca39c4d0b3"
@@ -38,9 +40,10 @@ const FilterProject = () => {
             </header>
             <div className="flex flex-wrap gap-2.5 items-start self-stretch mt-6">
               {modalities.map((modality, index) => (
-                <div
+                <button
+                onClick={()=>{setModality(modality.label)}}
                   key={index}
-                  className="flex gap-1.5 px-3 py-1.5 rounded-md border border-solid bg-zinc-800 border-zinc-700 text-sm leading-none text-neutral-400"
+                  className={`flex gap-1.5 px-3 py-1.5 rounded-md border border-solid  text-sm leading-none  ${selectedModality==modality.label ? "bg-blue-800  border-blue-600 text-white":"bg-zinc-800 border-zinc-700 text-neutral-400"}`}
                 >
                   <img
                     loading="lazy"
@@ -49,12 +52,12 @@ const FilterProject = () => {
                     className="object-contain shrink-0 my-auto w-3 aspect-square"
                   />
                   <div>{modality.label}</div>
-                </div>
+                </button>
               ))}
             </div>
           </section>
         </div>
-        <div className="md:w-1/3 px-4 py-4">
+        {/* <div className="flex-1 px-4 py-4">
           <section className="flex flex-col rounded-none border-r-2 px-4 border-solid bg-zinc-950 border-zinc-900 mt-5 ">
             <header className="flex gap-5 justify-between items-start w-full">
               <h2 className="text-lg font-medium text-white">Size Rows</h2>
@@ -123,12 +126,15 @@ const FilterProject = () => {
             </header>
             <div className="flex flex-wrap gap-2.5 mt-4"></div>
           </section>
-        </div>
-        <div className="md:w-1/3 px-4 py-4">
+        </div> */}
+        <div className="flex-1 px-4 py-4">
           <section className="flex flex-col rounded-none mt-5">
             <header className="flex gap-5 justify-between w-full">
               <h2 className="text-lg font-medium text-white">Format</h2>
-              <button className="flex gap-1 px-3 py-1.5 text-sm leading-none rounded-md border border-solid bg-zinc-950 border-zinc-700 text-neutral-400">
+              <button 
+                onClick={()=>{setFormat("")}}
+              
+              className="flex gap-1 px-3 py-1.5 text-sm leading-none rounded-md border border-solid bg-zinc-950 border-zinc-700 text-neutral-400">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/55724ebaa22ba79ac2bdeeb855b6a9cbb539621d755b04256d5a91788bc9e8e2?placeholderIfAbsent=true&apiKey=3ffd321d22914a748ca8bbca39c4d0b3"
@@ -141,8 +147,9 @@ const FilterProject = () => {
             <div className="flex flex-wrap gap-2.5 mt-4">
               {formats.map((format, index) => (
                 <button
-                  key={index}
-                  className="flex gap-1.5 px-3 py-1.5 text-sm leading-none whitespace-nowrap rounded-md border border-solid bg-zinc-800 border-zinc-700 text-neutral-400"
+                onClick={()=>{setFormat(format.name)}}
+                key={index}
+                  className={`flex gap-1.5 px-3 py-1.5 text-sm leading-none whitespace-nowrap rounded-md border border-solid ${selectedFormat==format.name ? "bg-blue-800  border-blue-600 text-white":"bg-zinc-800 border-zinc-700 text-neutral-400"}`}
                 >
                   <img
                     loading="lazy"

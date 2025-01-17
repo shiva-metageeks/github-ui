@@ -1,27 +1,27 @@
-import HuggingFaceDataset from "@/components/owner_repoName/HuggingFaceDataset";
-import { axiosInstance } from "@/utils/axios";
+import RepositoryViewContainer from "@/components/owner_repoName/RepositoryViewContainer";
+import { gitlabAxiosInstance } from "@/utils/axios";
 import { fetchFile, getData } from "@/utils/getData";
 import ReadmeViewer from "@/components/ReadmeViewer";
 import { Project } from "@/types/project";
+import Header from "@/components/owner_repoName/Header";
+import SpaceIframe from "./components/SpaceIframe";
+import { fetchRequest, publicRequest } from "@/config/request";
+import { Space } from "@/types/Space";
+import SpaceViewContent from "./components/SpaceViewContent";
 
 const page = async ({
   params,
 }: {
   params: { owner: string; repoName: string; branch: string };
 }) => {
-  console.log(params, "params");
+  const data: Space = await fetchRequest(`/spaces/namespace/${encodeURIComponent(params.owner + "/" + params.repoName)}`)
 
-  const { projectId, tagsData } = await getData({
+  const { projectId } = await getData({
     currentBranch: params.branch,
     root: [],
     owner: params.owner,
     repoName: params.repoName,
   });
-  // const projectId = await getProjectId({
-  //   owner: params.owner,
-  //   repoName: params.repoName,
-  // });
-  console.log(projectId, "projectId");
   if (projectId === -1) {
     return <div>Project not found</div>;
   }
@@ -34,32 +34,28 @@ const page = async ({
 
   return (
     <div>
-      <HuggingFaceDataset
-        tagsData={tagsData}
+      {/* <Header rootPath="spaces" pathname={pathname}/> */}
+      <RepositoryViewContainer
+        // tagsData={tagsData}
         pathname={pathname}
         owner={params.owner}
         repoName={params.repoName}
         rootPath={"spaces"}
       >
-        {file ? (
-          <ReadmeViewer readme={file} />
-        ) : (
-          <div>No description found</div>
-        )}
-      </HuggingFaceDataset>
+        <SpaceViewContent data={data} emptyRepo={!data.deployed_url && !file}/>
+      </RepositoryViewContainer>
     </div>
   );
 };
 
 export async function generateStaticParams() {
-  const project: Project[] = await axiosInstance
-    .get("/projects")
-    .then((res) => res.data);
 
-  return project.map((project) => {
-    const owner = project.path_with_namespace.split("/")[0];
-    const repoName = project.path_with_namespace.split("/")[1];
-    // console.log(owner, repoName);
+  const spaceData = await publicRequest("/spaces/all")
+  const allSpaces: Space[] = spaceData.data
+
+  return allSpaces.map((space) => {
+    const owner = space.repository.path_with_namespace.split("/")[0];
+    const repoName = space.repository.path_with_namespace.split("/")[1];
     return { owner, repoName };
   });
 }

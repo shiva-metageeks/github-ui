@@ -17,7 +17,7 @@ const DatasetInfo = ({
           alt=""
           className="object-contain shrink-0 w-5 aspect-square"
         />
-        <span className="my-auto">Datasets:</span>
+        {/* <span className="my-auto">Datasets:</span> */}
       </div>
       <img
         loading="lazy"
@@ -39,7 +39,7 @@ const DatasetInfo = ({
           alt=""
           className="object-contain shrink-0 my-auto w-3.5 aspect-square"
         />
-        <div className="flex gap-1.5 items-center py-px pr-px pl-2 w-28 bg-gray-600 rounded-md">
+        {/* <div className="flex gap-1.5 items-center py-px pr-px pl-2 w-28 bg-gray-600 rounded-md">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/0aefc42288580767d8bdb486577693fe1e1cff62363c3f4d1a00499173990d5e?apiKey=caf73ded90744adfa0fe2d98abed61c0&"
@@ -48,7 +48,7 @@ const DatasetInfo = ({
           />
           <span className="self-stretch my-auto text-white">like</span>
           <span className="self-stretch px-2 py-2 text-white">28</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import HuggingFaceDataset from "@/components/owner_repoName/HuggingFaceDataset";
+import RepositoryViewContainer from "@/components/owner_repoName/RepositoryViewContainer";
 import { getData } from "@/utils/getData";
 import FilesAndFolderLayout from "@/components/FilesAndFolderLayout";
 
@@ -32,12 +32,12 @@ export default async function Page({
   const pathname = `/${params.owner}/${params.repoName}`;
 
   return (
-    <HuggingFaceDataset
+    <RepositoryViewContainer
       owner={params.owner}
       repoName={params.repoName}
-      tagsData={tagsData}
+      // tagsData={tagsData}
       pathname={pathname}
-      rootPath={"dataset"}
+      rootPath={"spaces"}
     >
       <FilesAndFolderLayout
         initialBranch={initialBranch}
@@ -45,14 +45,14 @@ export default async function Page({
         data={data}
         owner={params.owner}
         repoName={params.repoName}
-        rootPath={"dataset"}
+        rootPath={"datasets"}
         commits={commits}
         contributors={contributors}
         totalCommits={totalCommits}
         projectId={projectId}
         branchName={branchName}
       />
-    </HuggingFaceDataset>
+    </RepositoryViewContainer>
   );
 }
 // https://git.clusterprotocol.ai/api/v4/projects/ucirvine%2Fsms_spam

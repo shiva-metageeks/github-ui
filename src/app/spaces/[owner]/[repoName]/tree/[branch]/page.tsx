@@ -1,5 +1,5 @@
-import HuggingFaceDataset from "@/components/owner_repoName/HuggingFaceDataset";
-import { axiosInstance } from "@/utils/axios";
+import RepositoryViewContainer from "@/components/owner_repoName/RepositoryViewContainer";
+import { gitlabAxiosInstance } from "@/utils/axios";
 import { getData } from "@/utils/getData";
 import FilesAndFolderLayout from "@/components/FilesAndFolderLayout";
 import { Project } from "@/types/project";
@@ -32,10 +32,10 @@ export default async function Page({
   const pathname = `/${params.owner}/${params.repoName}`;
 
   return (
-    <HuggingFaceDataset
+    <RepositoryViewContainer
       owner={params.owner}
       repoName={params.repoName}
-      tagsData={tagsData}
+      // tagsData={tagsData}
       pathname={pathname}
       rootPath={"spaces"}
     >
@@ -45,25 +45,25 @@ export default async function Page({
         data={data}
         owner={params.owner}
         repoName={params.repoName}
-        rootPath={"dataset"}
+        rootPath={"datasets"}
         commits={commits}
         contributors={contributors}
         totalCommits={totalCommits}
         projectId={projectId}
         branchName={branchName}
       />
-    </HuggingFaceDataset>
+    </RepositoryViewContainer>
   );
 }
 
 export async function generateStaticParams() {
-  const project: Project[] = await axiosInstance
+  const project: Project[] = await gitlabAxiosInstance
     .get("/projects")
     .then((res) => res.data);
 
   const data = await Promise.all(
     project.map(async (project) => {
-      let branches: Branch[] | [{ name: string }] = await axiosInstance
+      let branches: Branch[] | [{ name: string }] = await gitlabAxiosInstance
         .get(`/projects/${project.id}/repository/branches`)
         .then((res) => res.data);
       branches = branches.length ? branches : [{ name: "main" }];

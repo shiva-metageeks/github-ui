@@ -1,10 +1,10 @@
 import { Branch, Commit, Contributor, FileStructure } from "@/types/type";
-import { axiosInstance } from "./axios";
+import { gitlabAxiosInstance } from "./axios";
 import { ITagsData } from "@/types/type";
 
 export const fetchProject = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     // console.log(response.data, "response.data");
     return response.data;
   } catch (error) {
@@ -15,7 +15,7 @@ export const fetchProject = async (url: string) => {
 
 export const fetchBranches = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -25,7 +25,7 @@ export const fetchBranches = async (url: string) => {
 
 export const fetchData = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -35,7 +35,7 @@ export const fetchData = async (url: string) => {
 
 export const fetchCommit = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data[0];
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ export const fetchCommit = async (url: string) => {
 
 export const fetchAllCommit = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ export const fetchAllCommit = async (url: string) => {
 
 export const fetchFile = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -65,7 +65,7 @@ export const fetchFile = async (url: string) => {
 
 export const fetchContributor = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -75,7 +75,7 @@ export const fetchContributor = async (url: string) => {
 
 export const fetchProjectByOwner = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -85,7 +85,7 @@ export const fetchProjectByOwner = async (url: string) => {
 
 export const fetchUser = async (url: string) => {
   try {
-    const response = await axiosInstance.get(url);
+    const response = await gitlabAxiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
